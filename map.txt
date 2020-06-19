@@ -1,0 +1,16 @@
+,,,EmptyTile,EmptyTile,EmptyTile,EmptyTile
+,,,EmptyTile,,,EmptyTile
+,,,EmptyTile,,,EmptyTile
+,,,EmptyTile,,EmptyTile,EmptyTile
+,,,EmptyTile,,EmptyTile,
+,,,EmptyTile,,EmptyTile,
+StartingRoom,EmptyTile,EmptyTile,EmptyTile,,EmptyTile,
+,,,EmptyTile,,EmptyTile,EmptyTile
+EmptyTile,,,EmptyTile,,EmptyTile,
+EmptyTile,,,EmptyTile,EmptyTile,EmptyTile,EmptyTile
+EmptyTile,,,EmptyTile,,,EmptyTile
+EmptyTile,,,EmptyTile,,,EmptyTile
+EmptyTile,,,EmptyTile,,,EmptyTile
+EmptyTile,EmptyTile,EmptyTile,EmptyTile,,,EmptyTile
+,,,EmptyTile,,,EmptyTile
+,,,EmptyTile,,EmptyTile,EmptyTile
