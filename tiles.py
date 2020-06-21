@@ -27,14 +27,14 @@ class MapTile:
 
     def available_actions(self):
         moves = self.adjacent_moves()
-        moves.append(actions.ViewInventory)
+        moves.append(actions.ViewInventory())
 
         return moves
 
 
 class StartingRoom(MapTile):
     def intro_text(self):
-        return("you find yourself in a derelict world. Your job is to remove the non-natives and rebild the settlement")
+        return("you find yourself in a derelict world. Your job is to remove the invasive aliens and rebild the settlement")
     
     def modify_player(self, player):
         pass
@@ -75,3 +75,10 @@ class EmptyTile(MapTile):
 
 
 #put room types here
+
+class WheatField(MapTile):
+    def intro_text(self):
+        return("This field is full of wheat")
+    
+    def modify_player(self, player):
+        pass

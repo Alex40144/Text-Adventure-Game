@@ -4,7 +4,7 @@ _world = {}
 starting_position = (0,0)
 
 def load_tiles():
-    with open('map.txt', 'r') as f:
+    with open('map.csv', 'r') as f:
         rows = f.readlines()
     x_max = len(rows[0].split('\t'))  #assuming all rows have same length
     for y in range(len(rows)):
