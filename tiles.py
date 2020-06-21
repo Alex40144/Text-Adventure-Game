@@ -1,5 +1,6 @@
 import items, enemies, actions, world
 
+#base class for all ingame tiles
 
 class MapTile:
     def __init__(self, x, y):
@@ -14,17 +15,17 @@ class MapTile:
 
     def adjacent_moves(self):
         moves = []
-        if world.tile_exists(self.x, self.y - 1):
-            moves.append(actions.MoveNorth())
         if world.tile_exists(self.x + 1, self.y):
             moves.append(actions.MoveEast())
-        if world.tile_exists(self.x, self.y - 1):
-            moves.append(actions.MoveSouth())
         if world.tile_exists(self.x - 1, self.y):
             moves.append(actions.MoveWest())
+        if world.tile_exists(self.x, self.y - 1):
+            moves.append(actions.MoveNorth())
+        if world.tile_exists(self.x, self.y + 1):
+            moves.append(actions.MoveSouth())
         return moves
 
-    def availiable_actions(self):
+    def available_actions(self):
         moves = self.adjacent_moves()
         moves.append(actions.ViewInventory)
 
@@ -33,7 +34,7 @@ class MapTile:
 
 class StartingRoom(MapTile):
     def intro_text(self):
-        return
+        return("you find yourself in a derelict world. Your job is to remove the non-natives and rebild the settlement")
     
     def modify_player(self, player):
         pass
@@ -71,3 +72,6 @@ class EmptyTile(MapTile):
 
     def modify_player(self, player):
         pass
+
+
+#put room types here
