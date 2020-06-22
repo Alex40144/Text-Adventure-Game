@@ -8,6 +8,7 @@ class MapTile:
         self.y = y
 
     def intro_text(self):
+        print('\n===========================================\n')
         raise NotImplementedError()
 
     def modify_player(self, player):
@@ -34,7 +35,7 @@ class MapTile:
 
 class StartingRoom(MapTile):
     def intro_text(self):
-        return("you find yourself in a derelict world. Your job is to remove the invasive aliens and rebild the settlement")
+        return("you find yourself in a derelict world. Your job is to remove the invasive aliens and rebild the settlement.")
     
     def modify_player(self, player):
         pass
