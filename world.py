@@ -9,8 +9,8 @@ def load_tiles():
     for row in datareader:
         map.append(row)
 
-    x_max = len(map[0])-1
-    y_max = len(map)-1
+    x_max = len(map[0])
+    y_max = len(map)
 
     for x in range(x_max):
         for y in range(y_max):

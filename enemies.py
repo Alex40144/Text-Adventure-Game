@@ -16,3 +16,7 @@ class Person(Enemy):
 class Bob(Person):
     def __init__(self):
         super().__init__(name="Bob", hp = 40, damage=5)
+
+class Bert(Person):
+    def __init__(self):
+        super().__init__(name="Bert", hp=10, damage = 2)

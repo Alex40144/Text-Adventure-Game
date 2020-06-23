@@ -28,4 +28,4 @@ class Pipe(Weapon):
 class Gold(Item):
     def __init__(self, ammount):
         self.ammount = ammount
-        super().__init__(name="Gold", description="An item that can be used to buy soon", value=self.ammount)
+        super().__init__(name="Gold", description="An item that can be used for nothing", value=self.ammount)

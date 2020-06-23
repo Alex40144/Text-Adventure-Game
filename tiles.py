@@ -8,7 +8,6 @@ class MapTile:
         self.y = y
 
     def intro_text(self):
-        print('\n===========================================\n')
         raise NotImplementedError()
 
     def modify_player(self, player):
@@ -35,7 +34,7 @@ class MapTile:
 
 class StartingRoom(MapTile):
     def intro_text(self):
-        return("you find yourself in a derelict world. Your job is to remove the invasive aliens and rebild the settlement.")
+        return("You have landed on an alien planet. Your sole purpose is to evict the aliens and replenish the planet.")
     
     def modify_player(self, player):
         pass
@@ -56,12 +55,12 @@ class EnemyRoom(MapTile):
         self.enemy = enemy
         super().__init__(x,y)
 
-    def modify_player(self, the_player):
+    def modify_player(self, player):
         if self.enemy.is_alive():
-            the_player.hp = the_player.hp - self.enemy.damage
-            print("Enemy does {} damage. You have {} HP remaining.".format(self.enemy.damage, the_player.hp))
+            player.hp = player.hp - self.enemy.damage
+            print("{} does {} damage. You have {} HP remaining.".format(self.enemy.name, self.enemy.damage, player.hp))
 
-    def availiable_actions(self):
+    def available_actions(self):
         if self.enemy.is_alive():
             return [actions.Attack(enemy=self.enemy)]
         else:
@@ -77,9 +76,25 @@ class EmptyTile(MapTile):
 
 #put room types here
 
-class WheatField(MapTile):
+class Field(MapTile):
     def intro_text(self):
-        return("This field is full of wheat")
+        return("You find yourself in an empty field.")
     
     def modify_player(self, player):
         pass
+
+class BertTile(EnemyRoom):
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.Bert())
+    def intro_text(self):
+        if self.enemy.is_alive:
+            return("you come across an alien. His name is Bert")
+        else:
+            return("A lonely field")
+
+class FindPipeTile(LootRoom):
+    def __init__(self, x, y):
+        super().__init__(x, y, items.Pipe())
+    def intro_text(self):
+        return("You find a rusty pipe in the long grass.")
+    
