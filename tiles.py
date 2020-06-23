@@ -34,7 +34,7 @@ class MapTile:
 
 class StartingRoom(MapTile):
     def intro_text(self):
-        return("You have landed on an alien planet. Your sole purpose is to evict the aliens and replenish the planet.")
+        return("You have landed on an alien planet. Your sole purpose is to evict the aliens and turn on the master switch.")
     
     def modify_player(self, player):
         pass
