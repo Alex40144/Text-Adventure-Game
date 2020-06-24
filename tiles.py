@@ -45,7 +45,12 @@ class LootRoom(MapTile):
         super().__init__(x,y)
 
     def add_loot(self, player):
-        player.inventory.append(self.item)
+        if self.item not in player.inventory:
+            player.inventory.append(self.item)
+            self.item.found = True
+        else:
+            pass
+
 
     def modify_player(self, player):
         self.add_loot(player)
@@ -58,7 +63,7 @@ class EnemyRoom(MapTile):
     def modify_player(self, player):
         if self.enemy.is_alive():
             player.hp = player.hp - self.enemy.damage
-            print("{} does {} damage. You have {} HP remaining.".format(self.enemy.name, self.enemy.damage, player.hp))
+            print("{} does {} damage to you. You have {} HP remaining.".format(self.enemy.name, self.enemy.damage, player.hp))
 
     def available_actions(self):
         if self.enemy.is_alive():
@@ -83,18 +88,57 @@ class Field(MapTile):
     def modify_player(self, player):
         pass
 
+class Road(MapTile):
+    def intro_text(self):
+        return("A deserted road covered in alien slime")
+    
+    def modify_player(self, player):
+        pass
+
+class Village(MapTile):
+    def intro_text(self):
+        return("You find a village. Unfortunatly it has been taken over by the invesive population.")
+    def modify_player(self, player):
+        pass
+
+class VillageShop(LootRoom):
+    def __init__(self, x, y):
+        super().__init__(x, y, items.Apple())
+    def intro_text(self):
+        if not self.item.is_found():
+            return("You have entered what apperas to be the village shop. You reach out and grab an apple from the shelf.")
+        else:
+            return("The village shop")
+
+    def modify_player(self, player):
+        pass
+
+
 class BertTile(EnemyRoom):
     def __init__(self, x, y):
         super().__init__(x, y, enemies.Bert())
     def intro_text(self):
-        if self.enemy.is_alive:
+        if self.enemy.is_alive():
             return("you come across an alien. His name is Bert")
         else:
             return("A lonely field")
+
+class BobTile(EnemyRoom):
+    def __init__(self, x, y):
+        super().__init__(x, y, enemies.Bob())
+    def intro_text(self):
+        if self.enemy.is_alive():
+            return("You come across an Alien called Bob")
+        else:
+            return ("An empty field")
+
 
 class FindPipeTile(LootRoom):
     def __init__(self, x, y):
         super().__init__(x, y, items.Pipe())
     def intro_text(self):
-        return("You find a rusty pipe in the long grass.")
+        if not self.item.is_found():
+            return("You find a rusty pipe in the long grass.")
+        else:
+            return("The field which you found the rusty pipe in")
     

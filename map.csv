@@ -1,7 +1,7 @@
 ,,,EmptyTile,EmptyTile,EmptyTile,EmptyTile
 ,,,EmptyTile,,,EmptyTile
-EmptyTile,EmptyTile,EmptyTile,EmptyTile,,,EmptyTile
-EmptyTile,,,EmptyTile,,EmptyTile,EmptyTile
-,,,EmptyTile,,EmptyTile,
-,,,EmptyTile,,EmptyTile,
+EmptyTile,VillageShop,Village,Field,,,EmptyTile
+EmptyTile,,,Road,,EmptyTile,EmptyTile
+,,,BobTile,,EmptyTile,
+,,,Field,,EmptyTile,
 StartingRoom,Field,BertTile,FindPipeTile,,EmptyTile,

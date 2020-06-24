@@ -1,8 +1,9 @@
 import items, world
+import random
 
 class Player():
     def __init__(self):
-        self.inventory = [items.Gold(15), items.Rock()]
+        self.inventory = [items.Rock()]
         self.hp = 100
         self.location_x, self.location_y = world.starting_position
         self.victory = False
@@ -44,9 +45,16 @@ class Player():
         if not enemy.is_alive():
             print("You have killed {}!".format(enemy.name))
         else:
-            print("{} Hp is {}.".format(enemy.name, enemy.hp))
+            print("You did {} damage to {}".format(best_weapon.damage, enemy.name))
+            print("{} has {}hp remaining.".format(enemy.name, enemy.hp))
 
     def do_action(self, action, **kwargs):
         action_method = getattr(self, action.method.__name__)
         if action_method:
             action_method(**kwargs)
+
+    def flee(self, tile):
+        """Moves the player randomly to an adjacent tile"""
+        available_moves = tile.adjacent_moves()
+        r = random.randint(0, len(available_moves) - 1)
+        self.do_action(available_moves[r])
