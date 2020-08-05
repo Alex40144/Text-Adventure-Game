@@ -15,13 +15,13 @@ class MapTile:
 
     def adjacent_moves(self):
         moves = []
-        if world.tile_exists(self.x + 1, self.y):
+        if world.get_tile(self.x + 1, self.y):
             moves.append(actions.MoveEast())
-        if world.tile_exists(self.x - 1, self.y):
+        if world.get_tile(self.x - 1, self.y):
             moves.append(actions.MoveWest())
-        if world.tile_exists(self.x, self.y - 1):
+        if world.get_tile(self.x, self.y - 1):
             moves.append(actions.MoveNorth())
-        if world.tile_exists(self.x, self.y + 1):
+        if world.get_tile(self.x, self.y + 1):
             moves.append(actions.MoveSouth())
         return moves
 

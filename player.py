@@ -18,7 +18,7 @@ class Player():
     def move(self, dx, dy):
         self.location_x += dx
         self.location_y += dy
-        print(world.tile_exists(self.location_x, self.location_y).intro_text())
+        print(world.get_tile(self.location_x, self.location_y).intro_text())
 
     def move_north(self):
         self.move(dx=0, dy=-1)
