@@ -1,4 +1,5 @@
 from player import Player
+import world
 
 
 class Action():
@@ -11,25 +12,12 @@ class Action():
     def __str__(self):
         return "{}: {}".format(self.hotkey, self.name)
 
-
-class MoveNorth(Action):
-    def __init__(self):
-        super().__init__(method=Player.move_north, name='Move north', hotkey='n')
-
-
-class MoveSouth(Action):
-    def __init__(self):
-        super().__init__(method=Player.move_south, name='Move South', hotkey='s')
-
-
-class MoveEast(Action):
-    def __init__(self):
-        super().__init__(method=Player.move_east, name='Move East', hotkey='e')
-
-
-class MoveWest(Action):
-    def __init__(self):
-        super().__init__(method=Player.move_west, name='Move West', hotkey='w')
+class MoveToTile(Action):
+    def __init__(self, tile, tilename, hotkey):
+        self.tile = tile
+        self.tilename = tilename
+        self.hotkey = hotkey
+        super().__init__(method=Player.move_tile, name=tilename, hotkey=hotkey, tile=tile)
 
 
 class ViewInventory(Action):
@@ -40,7 +28,3 @@ class ViewInventory(Action):
 class Attack(Action):
     def __init__(self, enemy):
         super().__init__(method=Player.attack, name="Attack", hotkey='a', enemy=enemy)
-
-class Flee(Action):
-    def __init__(self, tile):
-        super().__init__(method=Player.flee, name="Flee", hotkey='f', tile=tile)

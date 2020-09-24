@@ -1,64 +1,56 @@
-import items, enemies, actions, world
+import items, enemies, actions, world, player
 
 #base class for all ingame tiles
 
 class MapTile:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    def intro_text(self):
-        raise NotImplementedError()
-
-    def modify_player(self, player):
-        raise NotImplementedError()
-
-    def adjacent_moves(self):
-        moves = []
-        if world.get_tile(self.x + 1, self.y):
-            moves.append(actions.MoveEast())
-        if world.get_tile(self.x - 1, self.y):
-            moves.append(actions.MoveWest())
-        if world.get_tile(self.x, self.y - 1):
-            moves.append(actions.MoveNorth())
-        if world.get_tile(self.x, self.y + 1):
-            moves.append(actions.MoveSouth())
-        return moves
-
-    def available_actions(self):
-        moves = self.adjacent_moves()
-        moves.append(actions.ViewInventory())
-
-        return moves
-
-
-class StartingRoom(MapTile):
-    def intro_text(self):
-        return("You have landed on an alien planet. Your sole purpose is to evict the aliens and turn on the master switch.")
-    
-    def modify_player(self, player):
+    def __init__(self):
         pass
 
+    def intro_text(self):
+        raise NotImplementedError()
+
+    def modify_player(self, player):
+        raise NotImplementedError()
+    
+    #this defines the next tiles that a player can move to.
+    def next_tile(self):
+        raise NotImplementedError()
+
+    def available_actions(self):
+        moves = self.next_tile()
+        for i in range(0, len(moves)):
+            moves[i] = actions.MoveToTile(moves[i][0], moves[i][1], moves[i][2])
+        
+        #removed this for now, won't need it for a while
+        #moves.append(actions.ViewInventory())
+
+        return moves
+
+
+#if the player needs anything
 class LootRoom(MapTile):
-    def __init__(self, x, y, item):
+    def __init__(self, item):
         self.item = item
-        super().__init__(x,y)
+        super().__init__()
 
     def add_loot(self, player):
         if self.item not in player.inventory:
             player.inventory.append(self.item)
-            self.item.found = True
+            print("you found a " + self.item.name)
         else:
-            pass
+            self.item.count += 1
+            print("you found a " + self.item.name)
 
 
     def modify_player(self, player):
         self.add_loot(player)
 
+
+#This will probaby be used later in the story
 class EnemyRoom(MapTile):
-    def __init__(self, x, y, enemy):
+    def __init__(self, enemy):
         self.enemy = enemy
-        super().__init__(x,y)
+        super().__init__()
 
     def modify_player(self, player):
         if self.enemy.is_alive():
@@ -69,11 +61,11 @@ class EnemyRoom(MapTile):
         if self.enemy.is_alive():
             return [actions.Attack(enemy=self.enemy)]
         else:
-            return self.adjacent_moves()
+            pass
 
 class EmptyTile(MapTile):
     def intro_text(self):
-        return
+        pass
 
     def modify_player(self, player):
         pass
@@ -81,64 +73,28 @@ class EmptyTile(MapTile):
 
 #put room types here
 
-class Field(MapTile):
+class StartingRoom(MapTile):
     def intro_text(self):
-        return("You find yourself in an empty field.")
+        return("Welcome to the Ready Player One simulation. Play as Wade Watts as you adventure through the oasis")
     
     def modify_player(self, player):
-        pass
+        return False
 
-class Road(MapTile):
-    def intro_text(self):
-        return("A deserted road covered in alien slime")
-    
-    def modify_player(self, player):
-        pass
+    def next_tile(self):
+        return [[world.next_tile(["Halliday"]), "Next", "n"]]
 
-class Village(MapTile):
-    def intro_text(self):
-        return("You find a village. Unfortunatly it has been taken over by the invesive population.")
-    def modify_player(self, player):
-        pass
 
-class VillageShop(LootRoom):
-    def __init__(self, x, y):
-        super().__init__(x, y, items.Apple())
+class Halliday(MapTile):
     def intro_text(self):
-        if not self.item.is_found():
-            return("You have entered what apperas to be the village shop. You reach out and grab an apple from the shelf.")
-        else:
-            return("The village shop")
+        return("This is the bit where Halliday say's he is dead")
 
     def modify_player(self, player):
-        pass
+        return False
+
+    def next_tile(self):
+        return [[world.next_tile(["EmptyTile"]), "Empty tile", "e"]]
 
 
-class BertTile(EnemyRoom):
-    def __init__(self, x, y):
-        super().__init__(x, y, enemies.Bert())
-    def intro_text(self):
-        if self.enemy.is_alive():
-            return("you come across an alien. His name is Bert")
-        else:
-            return("A lonely field")
-
-class BobTile(EnemyRoom):
-    def __init__(self, x, y):
-        super().__init__(x, y, enemies.Bob())
-    def intro_text(self):
-        if self.enemy.is_alive():
-            return("You come across an Alien called Bob")
-        else:
-            return ("An empty field")
 
 
-class FindPipeTile(LootRoom):
-    def __init__(self, x, y):
-        super().__init__(x, y, items.Pipe())
-    def intro_text(self):
-        if not self.item.is_found():
-            return("You find a rusty pipe in the long grass.")
-        else:
-            return("The field which you found the rusty pipe in")
-    
+
