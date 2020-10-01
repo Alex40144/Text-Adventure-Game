@@ -1,4 +1,4 @@
-import world
+import world, inspect
 from player import Player
 
 
@@ -11,7 +11,7 @@ def play():
         room = player.current_tile()
         room = room()
         room.modify_player(player)
-        print(room.intro_text())
+        print(inspect.cleandoc(room.intro_text()))
         if player.is_alive() and not player.victory:
             print("\n===========================================\nChoose an action:")
             available_actions = room.available_actions()

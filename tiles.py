@@ -65,10 +65,13 @@ class EnemyRoom(MapTile):
 
 class EmptyTile(MapTile):
     def intro_text(self):
-        pass
+        return("""  """)
 
     def modify_player(self, player):
         pass
+
+    def next_tile():
+        return [[world.next_tile(["EmptyTile"]), "Empty tile", "e"]]
 
 
 #put room types here
@@ -81,20 +84,42 @@ class StartingRoom(MapTile):
         return False
 
     def next_tile(self):
-        return [[world.next_tile(["Halliday"]), "Next", "n"]]
+        return [[world.next_tile(["HallidayIntro1"]), "Next", "n"]]
 
 
-class Halliday(MapTile):
+class HallidayIntro1(MapTile):
     def intro_text(self):
-        return("This is the bit where Halliday say's he is dead")
+        return("""News just in that the creator of the OASIS has died in the night. 
+            Every man and their dog is going crazy for the video message that the wizard left behind.""")
 
     def modify_player(self, player):
         return False
 
     def next_tile(self):
+        return [[world.next_tile(["HallidayIntro2"]), "Next", "n"]]
+
+class HallidayIntro2(MapTile):
+    def intro_text(self):
+        return("""Anorak's Invitation: \n My entire estate, including a controlling share of stock in my company, Gregarious
+            Simulation Systems, is to be placed in escrow until such time as a single
+            condition I have set forth in my will is met. The fi rst individual to meet
+            that condition will inherit my entire fortune, currently valued in excess of
+            two hundred and forty billion dollars.""")
+
+    def modify_player(self, player):
+        return False
+
+    def next_tile(self):
+        return [[world.next_tile(["HallidayIntro3"]), "Next", "n"]]
+
+class HallidayIntro3(MapTile):
+    def intro_text(self):
+        return(""" Halliday has placed easter eggs around the OASIS, just like Robinett hid his name in Adventure.
+            You're task is to find all the eggs in the OASIS, the first to find the last will recieve Halliday's entire fortune. """)
+
+    def modify_player(self, player):
+        pass
+
+    def next_tile():
         return [[world.next_tile(["EmptyTile"]), "Empty tile", "e"]]
-
-
-
-
 
